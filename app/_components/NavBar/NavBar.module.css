@@ -1,0 +1,8 @@
+.navLink {
+  @apply block w-full p-3 transition-all duration-300 md:h-nav md:flex md:items-center  md:p-2  md:justify-center md:ease-linear;
+
+  &:hover,
+  &.active {
+    @apply md:bg-blue-300 md:shadow-100 md:scale-110 bg-white text-blue-300 max-md:ps-5 md:text-white;
+  }
+}
