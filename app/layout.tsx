@@ -4,6 +4,8 @@ import "./globals.css";
 import NavBar from "./_components/NavBar/NavBar";
 import About from "./_components/About";
 import Landing from "./_components/Landing";
+import MySkills from "./_components/MySkills/MySkills";
+import MyProjects from "./_components/MyProjects";
 
 const ubuntu = Ubuntu({
   subsets: ["latin"],
@@ -27,6 +29,8 @@ export default function RootLayout({
         <NavBar />
         <Landing />
         <About />
+        <MySkills />
+        <MyProjects />
         {children}
       </body>
     </html>

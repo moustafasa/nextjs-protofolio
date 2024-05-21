@@ -3,10 +3,10 @@ import SectionHead from "./SectionHead";
 
 export default function About() {
   return (
-    <div className="min-h-screen">
+    <div className="section" id="About">
       <SectionHead title="about" />
-      <div className="container flex flex-col items-center py-16 gap-20 md:flex-row md:">
-        <div className="rounded-circle shadow-lg shadow-blue-300 grid place-items-center p-5 mx-5 ">
+      <div className="container flex flex-col items-center py-16 gap-20 lg:flex-row  lg:gap-24">
+        <div className="rounded-circle shadow-lg shadow-blue-300 grid place-items-center p-5 lg:p-7 mx-5 max-w-[430px]">
           <Image
             src={"/imgs/about.jpeg"}
             alt="my photo"
@@ -15,7 +15,7 @@ export default function About() {
             className=" transition-transform duration-300 shadow-100 shadow-black-shadow1 rounded-circle hover:scale-[1.2] hover:-rotate-[10deg] "
           />
         </div>
-        <div className="text-center">
+        <div className="text-center lg:flex-1">
           <h3 className="text-green-300 text-5xl font-bold mb-7 capitalize">
             who am i ?
           </h3>

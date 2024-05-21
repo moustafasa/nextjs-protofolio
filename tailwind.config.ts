@@ -25,6 +25,9 @@ const config: Config = {
         100: "0 0 10px var(--tw-shadow-color) ",
         lg: "0 0 50px 20px var(--tw-shadow-color)",
       },
+      gridTemplateColumns: {
+        responsive: "repeat(auto-fill, minmax(200px, 1fr))",
+      },
     },
 
     container: {
@@ -66,12 +69,16 @@ const config: Config = {
       beige: "#f4eee0",
 
       /* brands colors */
-      html5: "rgb(227, 79, 38)",
+      html: "rgb(227, 79, 38)",
       js: "rgb(247, 223, 30)",
       sass: "rgb(207, 100, 154)",
       css: "rgb(20, 159, 217)",
       gulp: "rgb(207, 69, 69)",
       pug: "rgb(239, 204, 163)",
+      react: "#61DBFB",
+      redux: "#764abc",
+      next: "#000",
+      git: "#F54D27",
     },
   },
   plugins: [],
