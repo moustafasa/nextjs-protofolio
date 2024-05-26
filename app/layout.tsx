@@ -5,7 +5,7 @@ import NavBar from "./_components/NavBar/NavBar";
 import About from "./_components/About";
 import Landing from "./_components/Landing";
 import MySkills from "./_components/MySkills/MySkills";
-import MyProjects from "./_components/MyProjects";
+import MyProjects from "./_components/MyProjects/MyProjects";
 
 const ubuntu = Ubuntu({
   subsets: ["latin"],
