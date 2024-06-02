@@ -5,7 +5,6 @@ import NavBar from "./_components/NavBar/NavBar";
 import About from "./_components/About";
 import Landing from "./_components/Landing";
 import MySkills from "./_components/MySkills/MySkills";
-import MyProjects from "./_components/MyProjects/MyProjects";
 
 const ubuntu = Ubuntu({
   subsets: ["latin"],
@@ -20,8 +19,10 @@ export const metadata: Metadata = {
 
 export default function RootLayout({
   children,
+  myprojects,
 }: Readonly<{
   children: React.ReactNode;
+  myprojects: React.ReactNode;
 }>) {
   return (
     <html lang="en" className="scroll-smooth">
@@ -30,7 +31,7 @@ export default function RootLayout({
         <Landing />
         <About />
         <MySkills />
-        <MyProjects />
+        {myprojects}
         {children}
       </body>
     </html>

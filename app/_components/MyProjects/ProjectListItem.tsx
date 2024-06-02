@@ -2,16 +2,18 @@ import clsx from "clsx";
 import Image from "next/image";
 import { forwardRef, memo } from "react";
 
-type Props = {};
-
-function ProjectListItem({}: Props) {}
+type Props = { active: boolean };
 
 export default memo(
-  forwardRef<HTMLLIElement>(function ProjectListItem({}: Props, ref) {
+  forwardRef<HTMLLIElement, Props>(function ProjectListItem({ active }, ref) {
+    if (active) {
+      console.log(active);
+    }
     return (
       <li
         className={clsx(
-          "p-3 bg-blue-200 rounded-xl transition-transform shadow-100 shadow-black-shadow2 hover:scale-110  duration-300 ease-linear snap-center flex-shrink-0 flex flex-col gap-2 w-[250px] md:w-[300px]"
+          "p-3 bg-blue-200 rounded-xl transition-all shadow-100 shadow-black-shadow2 duration-300 ease-linear snap-center flex-shrink-0 flex flex-col gap-2 w-[250px] md:w-[300px] ",
+          { "scale-110 bg-green-100": active }
         )}
         ref={ref}
       >
@@ -29,5 +31,7 @@ export default memo(
       </li>
     );
   }),
-  () => false
+  (prev, next) => {
+    return prev.active !== next.active;
+  }
 );
