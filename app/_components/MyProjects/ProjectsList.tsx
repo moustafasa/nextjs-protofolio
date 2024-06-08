@@ -11,13 +11,13 @@ import ProjectListItem from "./ProjectListItem";
 import resolveConfig from "tailwindcss/resolveConfig";
 import tailwindConfig from "@/tailwind.config";
 import { FaAngleLeft, FaAngleRight } from "react-icons/fa6";
+import useCurrentProject from "@/app/_Context/useCurrentProject";
 
 type Props = {};
 
 export default function ProjectsList({}: Props) {
   const projectListContRef = useRef<HTMLDivElement>(null);
 
-  const numberOfElements = 24;
   const itemsRef = useRef<HTMLLIElement[]>([]);
 
   const tailConfig = useMemo(
@@ -26,23 +26,32 @@ export default function ProjectsList({}: Props) {
   );
 
   const [scrollFactor, setScrollFactor] = useState(0);
-  const [currentElement, setCurrentElement] = useState(0);
+  const [currentElement, setCurrentElement] = useCurrentProject();
+  const [projectsMeta, setProjectsMeta] = useState<ProjectMeta[]>([]);
+
+  const scrollendTimeOut = useRef<NodeJS.Timeout>();
+
+  const scrollHandler = (e: UIEvent<HTMLDivElement>) => {
+    clearTimeout(scrollendTimeOut.current);
+
+    scrollendTimeOut.current = setTimeout(() => {
+      if (projectListContRef.current)
+        setCurrentElement(projectListContRef.current.scrollLeft / scrollFactor);
+    }, 100);
+  };
 
   useEffect(() => {
     function calcScrollFactor() {
       if (projectListContRef.current) {
-        let containerWidth: number;
-        if (window.matchMedia(`(min-width:${tailConfig.md})`).matches) {
-          containerWidth = 300;
-        } else {
-          containerWidth = 250;
-        }
+        const containerWidth = window.matchMedia(`(min-width:${tailConfig.md})`)
+          .matches
+          ? 300
+          : 250;
         const sizeOfLeftShowedView =
           (projectListContRef.current.clientWidth - containerWidth) / 2;
         setScrollFactor(
           sizeOfLeftShowedView + (containerWidth - (sizeOfLeftShowedView - 32))
         );
-        console.log(containerWidth);
       }
     }
 
@@ -54,17 +63,18 @@ export default function ProjectsList({}: Props) {
     };
   }, [tailConfig.md]);
 
-  const scrollendTimeOut = useRef<NodeJS.Timeout>();
+  useEffect(() => {
+    const getProjects = async () => {
+      const res = await fetch("/api/projects");
+      if (!res.ok) {
+        setProjectsMeta([]);
+      } else {
+        setProjectsMeta(await res.json());
+      }
+    };
 
-  const scrollHandler = (e: UIEvent<HTMLDivElement>) => {
-    clearTimeout(scrollendTimeOut.current);
-
-    scrollendTimeOut.current = setTimeout(() => {
-      if (projectListContRef.current)
-        setCurrentElement(projectListContRef.current.scrollLeft / scrollFactor);
-      console.log("done");
-    }, 100);
-  };
+    getProjects();
+  }, []);
 
   return (
     <div
@@ -90,13 +100,15 @@ export default function ProjectsList({}: Props) {
         }
       >
         <li className="w-[calc(((100%-250px)/2)-32px)] md:w-[calc(((100%-300px)/2)-32px)] flex-shrink-0"></li>
-        {new Array(numberOfElements).fill(0).map((_, key) => (
+        {projectsMeta.map((meta, key) => (
           <ProjectListItem
-            key={key}
+            key={meta.id}
             active={key === currentElement}
             ref={(ref) => {
               if (ref) itemsRef.current[key] = ref;
             }}
+            title={meta.name || ""}
+            src={meta.img}
           />
         ))}
         <li className=" w-[calc(((100%-250px)/2)-32px)] md:w-[calc(((100%-300px)/2)-32px)] flex-shrink-0"></li>

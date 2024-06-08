@@ -11,3 +11,10 @@ type Skill =
       textColor: string;
       shadowColor: string;
     };
+
+type ProjectMeta = {
+  id: string;
+  name: string;
+  description: string | null;
+  img: string;
+};

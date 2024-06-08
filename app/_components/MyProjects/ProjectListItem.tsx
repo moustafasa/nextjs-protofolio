@@ -1,14 +1,16 @@
+"use client";
 import clsx from "clsx";
 import Image from "next/image";
-import { forwardRef, memo } from "react";
+import { forwardRef, memo, useState } from "react";
 
-type Props = { active: boolean };
+type Props = { active: boolean; src: string; title: string };
 
 export default memo(
-  forwardRef<HTMLLIElement, Props>(function ProjectListItem({ active }, ref) {
-    if (active) {
-      console.log(active);
-    }
+  forwardRef<HTMLLIElement, Props>(function ProjectListItem(
+    { active, src, title },
+    ref
+  ) {
+    const [imgErr, setImgErr] = useState(false);
     return (
       <li
         className={clsx(
@@ -17,16 +19,22 @@ export default memo(
         )}
         ref={ref}
       >
-        <Image
-          src={"/imgs/project.png"}
-          alt="fdsjaf"
-          width={300}
-          height={200}
-          className="rounded-md  flex-1 object-cover aspect-videw"
-          priority
-        />
+        {!imgErr ? (
+          <Image
+            src={src}
+            alt="fdsjaf"
+            width={300}
+            height={200}
+            className="rounded-md  flex-1 object-cover aspect-video"
+            onError={(e) => setImgErr(true)}
+          />
+        ) : (
+          <div className="h-[200px] w-[300px] rounded-md flex-1 object-cover aspect-video">
+            no img found
+          </div>
+        )}
         <p className=" bg-black p-2 rounded-md text-center capitalize  overflow-hidden text-nowrap overflow-ellipsis max-h-min">
-          Space Tourism Project From Frontend Mentor
+          {title}
         </p>
       </li>
     );

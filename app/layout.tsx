@@ -5,6 +5,8 @@ import NavBar from "./_components/NavBar/NavBar";
 import About from "./_components/About";
 import Landing from "./_components/Landing";
 import MySkills from "./_components/MySkills/MySkills";
+import MyProjects from "./_components/MyProjects/MyProjects";
+import { MDXRemote } from "next-mdx-remote/rsc";
 
 const ubuntu = Ubuntu({
   subsets: ["latin"],
@@ -19,7 +21,6 @@ export const metadata: Metadata = {
 
 export default function RootLayout({
   children,
-  myprojects,
 }: Readonly<{
   children: React.ReactNode;
   myprojects: React.ReactNode;
@@ -31,7 +32,7 @@ export default function RootLayout({
         <Landing />
         <About />
         <MySkills />
-        {myprojects}
+        <MyProjects />
         {children}
       </body>
     </html>
