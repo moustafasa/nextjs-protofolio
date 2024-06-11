@@ -7,7 +7,7 @@ export default function ProjectShow({}: Props) {
     <div className="flex-1 flex flex-col gap-7 lg:px-24">
       <div className="border-[15px] border-blue-200 rounded-xl bg-blue-200">
         <iframe
-          className="w-full aspect-square"
+          className="w-full h-screen"
           src="https://moustafasa.github.io/space-tourism-multi-page-website/"
         ></iframe>
       </div>

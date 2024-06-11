@@ -13,9 +13,9 @@ import tailwindConfig from "@/tailwind.config";
 import { FaAngleLeft, FaAngleRight } from "react-icons/fa6";
 import useCurrentProject from "@/app/_Context/useCurrentProject";
 
-type Props = {};
+type Props = { projectsMeta: ProjectMeta[] };
 
-export default function ProjectsList({}: Props) {
+export default function ProjectsList({ projectsMeta }: Props) {
   const projectListContRef = useRef<HTMLDivElement>(null);
 
   const itemsRef = useRef<HTMLLIElement[]>([]);
@@ -25,18 +25,27 @@ export default function ProjectsList({}: Props) {
     []
   );
 
-  const [scrollFactor, setScrollFactor] = useState(0);
+  const [scrollFactor, setScrollFactor] = useState(1);
   const [currentElement, setCurrentElement] = useCurrentProject();
-  const [projectsMeta, setProjectsMeta] = useState<ProjectMeta[]>([]);
 
   const scrollendTimeOut = useRef<NodeJS.Timeout>();
+
+  const calcCurrentElement = useCallback(() => {
+    if (projectListContRef.current && projectsMeta.length > 0) {
+      const currentElementIndex = Math.ceil(
+        projectListContRef.current.scrollLeft / scrollFactor
+      );
+      console.log(currentElementIndex);
+      console.log(projectsMeta[currentElementIndex]);
+      setCurrentElement(projectsMeta[currentElementIndex].id);
+    }
+  }, [projectsMeta, scrollFactor, setCurrentElement]);
 
   const scrollHandler = (e: UIEvent<HTMLDivElement>) => {
     clearTimeout(scrollendTimeOut.current);
 
     scrollendTimeOut.current = setTimeout(() => {
-      if (projectListContRef.current)
-        setCurrentElement(projectListContRef.current.scrollLeft / scrollFactor);
+      calcCurrentElement();
     }, 100);
   };
 
@@ -64,17 +73,8 @@ export default function ProjectsList({}: Props) {
   }, [tailConfig.md]);
 
   useEffect(() => {
-    const getProjects = async () => {
-      const res = await fetch("/api/projects");
-      if (!res.ok) {
-        setProjectsMeta([]);
-      } else {
-        setProjectsMeta(await res.json());
-      }
-    };
-
-    getProjects();
-  }, []);
+    calcCurrentElement();
+  }, [calcCurrentElement]);
 
   return (
     <div
@@ -103,7 +103,7 @@ export default function ProjectsList({}: Props) {
         {projectsMeta.map((meta, key) => (
           <ProjectListItem
             key={meta.id}
-            active={key === currentElement}
+            active={meta.id === currentElement}
             ref={(ref) => {
               if (ref) itemsRef.current[key] = ref;
             }}

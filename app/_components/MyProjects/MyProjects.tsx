@@ -1,7 +1,8 @@
 import SectionHead from "../SectionHead";
-import ProjectsList from "./ProjectsList";
 import ProjectShow from "./ProjectShow";
 import ProjectContextProvider from "@/app/_Context/ProjectContextProvider";
+import ProjectListServer from "./ProjectListServer";
+import { Suspense } from "react";
 
 function MyProjects() {
   return (
@@ -10,7 +11,9 @@ function MyProjects() {
       <div className="container py-5 flex flex-col-reverse gap-7">
         <ProjectContextProvider>
           <ProjectShow />
-          <ProjectsList />
+          <Suspense fallback={<div>loading...</div>}>
+            <ProjectListServer />
+          </Suspense>
         </ProjectContextProvider>
       </div>
     </div>

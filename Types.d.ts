@@ -13,7 +13,7 @@ type Skill =
     };
 
 type ProjectMeta = {
-  id: string;
+  id: number;
   name: string;
   description: string | null;
   img: string;
