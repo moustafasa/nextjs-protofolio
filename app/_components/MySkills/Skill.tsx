@@ -13,7 +13,9 @@ export default function Skill({
     >
       <h3 className="uppercase flex flex-col items-center text-center gap-4">
         {"Icon" in Rest && (
-          <Rest.Icon className={clsx(`text-7xl`, `${textColor}`)} />
+          <Rest.Icon
+            className={clsx(`text-7xl bg-white p-2 rounded `, `${textColor}`)}
+          />
         )}
         {"Image" in Rest && (
           <Image src={Rest.Image} width={65} height={65} alt="pug image" />

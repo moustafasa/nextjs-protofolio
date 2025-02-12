@@ -9,8 +9,9 @@ import {
   FaSass,
 } from "react-icons/fa6";
 import PugImage from "@/public/imgs/pug.png";
-import { SiRedux } from "react-icons/si";
+import { SiRedux, SiTailwindcss, SiTypescript } from "react-icons/si";
 import { RiNextjsFill } from "react-icons/ri";
+import { FaBootstrap } from "react-icons/fa";
 
 const skills: Skill[] = [
   {
@@ -78,6 +79,24 @@ const skills: Skill[] = [
     title: "git",
     textColor: "text-git",
     shadowColor: "shadow-git/50",
+  },
+  {
+    Icon: SiTailwindcss,
+    title: "tailwind",
+    textColor: "text-tailwind",
+    shadowColor: "shadow-tailwind/50",
+  },
+  {
+    Icon: FaBootstrap,
+    title: "bootstrap",
+    textColor: "text-bootstrap",
+    shadowColor: "shadow-bootstrap/50",
+  },
+  {
+    Icon: SiTypescript,
+    title: "typescript",
+    textColor: "text-typescript",
+    shadowColor: "shadow-typescript/50",
   },
 ];
 

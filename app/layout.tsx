@@ -29,10 +29,6 @@ export default function RootLayout({
     <html lang="en" className="scroll-smooth">
       <body className={ubuntu.className + " bg-blue-100 text-white relative"}>
         <NavBar />
-        <Landing />
-        <About />
-        <MySkills />
-        <MyProjects />
         {children}
       </body>
     </html>
